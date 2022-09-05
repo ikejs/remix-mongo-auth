@@ -1,0 +1,12 @@
+node_modules
+
+.cache
+.env
+.vercel
+.output
+.DS_Store
+
+/build/
+/public/build
+api/
+TODO/
