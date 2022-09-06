@@ -1,8 +1,10 @@
 import { json } from "@remix-run/node";
 import { Link, useLoaderData } from "@remix-run/react";
+import { requireAuth } from "~/utils/auth.server";
 import { getNotes } from "~/services/note.server";
 
-export const loader = async () => {
+export const loader = async ({ request }) => {
+  await requireAuth(request);
   return json(await getNotes());
 };
 

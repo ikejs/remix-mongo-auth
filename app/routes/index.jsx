@@ -6,6 +6,7 @@ export default function Index() {
       <h1 className="text-3xl font-bold">
         Remix + MongoDB + Auth + Tailwind
       </h1>
+      <Link to="/signup" className="text-blue-500">Signup</Link>
       <ul>
         <li>
           <Link to="/notes" className="text-blue-500">View Notes</Link>
