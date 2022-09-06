@@ -12,6 +12,7 @@ export default function Notes() {
   const notes = useLoaderData();
   return (
     <div className="flex flex-col">
+      {!notes.length && (<p>no notes yet</p>)}
       {notes.map((note) => (
         <div className="m-4 p-4 bg-slate-300 rounded-lg" key={note._id}>
           <Link to={note._id}>
