@@ -1,3 +1,14 @@
 {
-  "extends": ["@remix-run/eslint-config", "@remix-run/eslint-config/node"]
+  "extends": [
+    "wesbos",
+    "@remix-run/eslint-config",
+    "@remix-run/eslint-config/node"
+  ],
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      }
+    }
+  }
 }

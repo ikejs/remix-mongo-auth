@@ -1,6 +1,6 @@
-import { json } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
-import { getNote } from "~/services/note.server";
+import { json } from '@remix-run/node';
+import { useLoaderData } from '@remix-run/react';
+import { getNote } from '~/services/note.server';
 
 export const loader = async ({ params }) => {
   const note = await getNote(params._id);

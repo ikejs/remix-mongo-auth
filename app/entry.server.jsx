@@ -1,6 +1,6 @@
-import { RemixServer } from "@remix-run/react";
-import { renderToString } from "react-dom/server";
-import { connect } from "./services/db.server";
+import { RemixServer } from '@remix-run/react';
+import { renderToString } from 'react-dom/server';
+import { connect } from './services/db.server';
 
 export default async function handleRequest(
   request,
@@ -8,16 +8,15 @@ export default async function handleRequest(
   responseHeaders,
   remixContext
 ) {
-  
-  await connect()
+  await connect();
 
   const markup = renderToString(
     <RemixServer context={remixContext} url={request.url} />
   );
 
-  responseHeaders.set("Content-Type", "text/html");
+  responseHeaders.set('Content-Type', 'text/html');
 
-  return new Response("<!DOCTYPE html>" + markup, {
+  return new Response(`<!DOCTYPE html>${markup}`, {
     status: responseStatusCode,
     headers: responseHeaders,
   });

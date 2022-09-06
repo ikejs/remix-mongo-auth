@@ -1,5 +1,3 @@
-import { logout } from "~/utils/auth.server";
+import { logout } from '~/utils/auth.server';
 
-export const loader = async ({ request}) => {
-  return logout(request);
-};
+export const loader = async ({ request }) => logout(request);
