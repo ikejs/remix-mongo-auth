@@ -14,6 +14,16 @@ const storage = createCookieSessionStorage({
   },
 });
 
+export const createUserSession = async (userId, redirectTo) => {
+  const session = await storage.getSession();
+  session.set('userId', userId);
+  return redirect(redirectTo, {
+    headers: {
+      'Set-Cookie': await storage.commitSession(session),
+    },
+  });
+};
+
 export const register = async (form) => {
   const exists = await getUser({ email: form.email });
   if (exists) {
@@ -49,15 +59,9 @@ export const login = async (form, redirectTo) => {
   return createUserSession(user._id, redirectTo);
 };
 
-export const createUserSession = async (userId, redirectTo) => {
-  const session = await storage.getSession();
-  session.set('userId', userId);
-  return redirect(redirectTo, {
-    headers: {
-      'Set-Cookie': await storage.commitSession(session),
-    },
-  });
-};
+function getUserSession(request) {
+  return storage.getSession(request.headers.get('Cookie'));
+}
 
 export async function requireAuth(
   request,
@@ -73,15 +77,20 @@ export async function requireAuth(
   return userId;
 }
 
-function getUserSession(request) {
-  return storage.getSession(request.headers.get('Cookie'));
-}
-
 async function getUserIdFromSession(request) {
   const session = await getUserSession(request);
   const userId = session.get('userId');
   if (!userId || typeof userId !== 'string') return null;
   return userId;
+}
+
+export async function logout(request) {
+  const session = await getUserSession(request);
+  return redirect('/login', {
+    headers: {
+      'Set-Cookie': await storage.destroySession(session),
+    },
+  });
 }
 
 export async function getUserFromSession(request) {
@@ -97,13 +106,4 @@ export async function getUserFromSession(request) {
     console.log(error);
     throw logout(request);
   }
-}
-
-export async function logout(request) {
-  const session = await getUserSession(request);
-  return redirect('/login', {
-    headers: {
-      'Set-Cookie': await storage.destroySession(session),
-    },
-  });
 }

@@ -1,6 +1,6 @@
 import { Form } from '@remix-run/react';
 import { redirect } from '@remix-run/node';
-import { login, getUserFromSession } from '../utils/auth.server';
+import { login, getUserFromSession } from '~/utils/auth.server';
 
 export const action = async ({ request }) => {
   const redirectTo = new URL(request.url).searchParams.get('redirectTo') || '/';

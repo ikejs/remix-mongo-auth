@@ -1,7 +1,7 @@
 import { Link, useLoaderData } from '@remix-run/react';
 import { getUserFromSession } from '~/utils/auth.server';
 
-export const loader = async ({ request }) => await getUserFromSession(request);
+export const loader = async ({ request }) => getUserFromSession(request);
 
 export default function Index() {
   const user = useLoaderData();
